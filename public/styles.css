@@ -736,3 +736,15 @@ footer {
     gap: 0.5rem;
   }
 }
+
+.games-grid--four {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .games-grid--four {
+    grid-template-columns: 1fr;
+  }
+}
