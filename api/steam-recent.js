@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
   const STEAM_API_KEY = process.env.STEAM_API_KEY;
-  const STEAM_USER_ID = process.env.STEAM_USER_ID;
+  const STEAM_USER_ID = process.env.STEAM_ID64;
 
   if (!STEAM_API_KEY || !STEAM_USER_ID) {
     return res.status(500).json({ error: "Missing Steam credentials in environment variables." });
