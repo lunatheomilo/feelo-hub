@@ -299,3 +299,29 @@ h2 {
     width: 100%;
   }
 }
+/* Add this to the bottom of your game-picker.css */
+
+.result-img {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+.result-img:hover {
+  opacity: 1;
+}
+
+.result-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.result-title a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
