@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Picker | Feelo Hub</title>
+  <link rel="stylesheet" href="./game-picker.css" />
+</head>
+<body>
+  <main class="picker-page">
+    <div class="picker-shell">
+      <nav class="top-nav">
+        <a class="back-link" href="./index.html">← Back to hub</a>
+      </nav>
+
+      <header class="hero">
+        <p class="eyebrow">Feelo Hub</p>
+        <h1>Game Picker</h1>
+        <p class="hero-copy">
+          Pick your mood, choose your energy level, and let the tool narrow down what you should play next.
+        </p>
+      </header>
+
+      <section class="panel">
+        <div class="field-group">
+          <label class="field-label">Mood</label>
+          <div class="chip-grid" id="mood-options">
+            <button type="button" class="chip" data-group="mood" data-value="cozy">Cozy</button>
+            <button type="button" class="chip" data-group="mood" data-value="chaotic">Chaotic</button>
+            <button type="button" class="chip" data-group="mood" data-value="adventurous">Adventurous</button>
+            <button type="button" class="chip" data-group="mood" data-value="melancholy">Melancholy</button>
+            <button type="button" class="chip" data-group="mood" data-value="focused">Focused</button>
+            <button type="button" class="chip" data-group="mood" data-value="silly">Silly</button>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Energy level</label>
+          <div class="chip-grid" id="energy-options">
+            <button type="button" class="chip" data-group="energy" data-value="low">Low</button>
+            <button type="button" class="chip" data-group="energy" data-value="medium">Medium</button>
+            <button type="button" class="chip" data-group="energy" data-value="high">High</button>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Genre preference <span class="optional">(optional)</span></label>
+          <div class="chip-grid" id="genre-options">
+            <button type="button" class="chip" data-group="genre" data-value="any">Any</button>
+            <button type="button" class="chip" data-group="genre" data-value="roguelike">Roguelike</button>
+            <button type="button" class="chip" data-group="genre" data-value="rpg">RPG</button>
+            <button type="button" class="chip" data-group="genre" data-value="simulation">Simulation</button>
+            <button type="button" class="chip" data-group="genre" data-value="puzzle">Puzzle</button>
+            <button type="button" class="chip" data-group="genre" data-value="story-rich">Story Rich</button>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="pick-button" class="primary-button" type="button">
+            Find my game
+          </button>
+
+          <button id="reset-button" class="secondary-button" type="button">
+            Reset
+          </button>
+        </div>
+
+        <p class="helper-text" id="selection-summary">
+          Choose a mood and energy level to begin.
+        </p>
+      </section>
+
+      <section class="panel status-panel hidden" id="loading-panel">
+        <p class="mono">Thinking...</p>
+      </section>
+
+      <section class="results hidden" id="results-section">
+        <div class="results-header">
+          <p class="eyebrow">Shortlist</p>
+          <h2>Your picks</h2>
+          <p class="results-copy" id="results-copy"></p>
+        </div>
+
+        <div class="results-grid" id="results-grid"></div>
+      </section>
+    </div>
+  </main>
+
+  <script src="./game-picker.js"></script>
+</body>
+</html>
