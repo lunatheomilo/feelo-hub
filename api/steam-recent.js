@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   const STEAM_API_KEY = process.env.STEAM_API_KEY;
   const STEAM_USER_ID = process.env.STEAM_ID64;
 
@@ -30,10 +30,10 @@ export default async function handler(req, res) {
 
     // Fetch Steam tags for top 60 games (enough for good scoring without hammering the API)
     const TOP_N = 60;
-    const topGames = sorted.slice(0, TOP_N);
+    const topNGames = sorted.slice(0, TOP_N);
 
     const tagResults = await Promise.allSettled(
-      topGames.map(async (game) => {
+      topNGames.map(async (game) => {
         try {
           const tagRes = await fetch(
             `https://store.steampowered.com/api/appdetails?appids=${game.appid}&filters=genres,categories`
