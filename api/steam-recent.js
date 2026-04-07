@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     const allGames = libraryData?.response?.games || [];
 
     if (!allGames.length) {
-      return res.status(200).json({ games: [], total: 0 });
+      return res.status(200).json({ games: [], recentGames: [], topGames: [], total: 0 });
     }
 
     // Sort by total playtime descending
@@ -77,7 +77,36 @@ export default async function handler(req, res) {
       categories: tagMap[game.appid]?.categories || [],
     }));
 
-    return res.status(200).json({ games, total: games.length });
+    // Fetch recently played (last 2 weeks) for the hub section
+    const recentRes = await fetch(
+      `https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v1/?key=${STEAM_API_KEY}&steamid=${STEAM_USER_ID}&count=5&format=json`
+    );
+    const recentData = recentRes.ok ? await recentRes.json() : {};
+    const recentRaw = recentData?.response?.games || [];
+
+    // Shape recentGames for script.js
+    const recentGames = recentRaw.map((game, index) => ({
+      appid: game.appid,
+      name: game.name,
+      playtime2Weeks: game.playtime_2weeks || 0,
+      playtimeForever: game.playtime_forever || 0,
+      status: index === 0 ? "playing" : "recent",
+    }));
+
+    // Shape topGames for script.js (top 5 by total playtime, exclude recent)
+    const recentIds = new Set(recentRaw.map((g) => g.appid));
+    const topGames = sorted
+      .filter((g) => !recentIds.has(g.appid) && (g.playtime_forever || 0) > 0)
+      .slice(0, 5)
+      .map((game, index) => ({
+        appid: game.appid,
+        name: game.name,
+        playtimeForever: game.playtime_forever || 0,
+        playtime2Weeks: game.playtime_2weeks || 0,
+        status: index === 0 ? "comfort pick" : "top played",
+      }));
+
+    return res.status(200).json({ games, recentGames, topGames, total: games.length });
   } catch (err) {
     console.error("steam-recent error:", err);
     return res.status(500).json({ error: "Failed to load Steam library." });
