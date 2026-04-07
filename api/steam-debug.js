@@ -12,10 +12,19 @@ export default async function handler(req, res) {
     }
 
     const recentUrl =
-      `https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v1/?key=${apiKey}&steamid=${steamId}&count=4`;
+      `https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v1/` +
+      `?key=${apiKey}` +
+      `&steamid=${steamId}` +
+      `&count=4` +
+      `&format=json`;
 
     const ownedUrl =
-      `https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=${apiKey}&steamid=${steamId}&include_appinfo=1&include_played_free_games=1&format=json`;
+      `https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/` +
+      `?key=${apiKey}` +
+      `&steamid=${steamId}` +
+      `&include_appinfo=1` +
+      `&include_played_free_games=1` +
+      `&format=json`;
 
     const recentResponse = await fetch(recentUrl);
     const ownedResponse = await fetch(ownedUrl);
@@ -28,12 +37,12 @@ export default async function handler(req, res) {
       ownedStatus: ownedResponse.status,
       recentOk: recentResponse.ok,
       ownedOk: ownedResponse.ok,
-      recentBodyPreview: recentText.slice(0, 500),
-      ownedBodyPreview: ownedText.slice(0, 500),
+      recentPreview: recentText.slice(0, 500),
+      ownedPreview: ownedText.slice(0, 500),
     });
   } catch (error) {
     return res.status(200).json({
-      error: "Function crashed",
+      error: "Debug route failed",
       message: String(error),
     });
   }
