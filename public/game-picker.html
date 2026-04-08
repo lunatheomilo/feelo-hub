@@ -8,96 +8,205 @@
   <link rel="stylesheet" href="./game-picker.css" />
 </head>
 <body>
-  <div class="picker-page">
-    <div class="picker-shell">
 
-      <nav class="top-nav">
-        <a href="./index.html" class="back-link">← feelo hub</a>
-      </nav>
+  <!-- Password gate -->
+  <div id="auth-gate" style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: radial-gradient(circle at top, rgba(200, 67, 58, 0.08), transparent 30%), #0e0e0e;
+    font-family: 'DM Sans', sans-serif;
+  ">
+    <div style="width: 100%; max-width: 360px; padding: 0 24px; text-align: center;">
+      <p style="
+        font-family: 'DM Mono', monospace;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #e8956d;
+        margin: 0 0 20px;
+      ">feelo hub · private</p>
+      <h2 style="
+        font-family: 'Playfair Display', Georgia, serif;
+        font-size: 32px;
+        font-weight: 400;
+        color: #e8e2d9;
+        margin: 0 0 32px;
+      ">what's the word?</h2>
+      <input
+        id="auth-input"
+        type="password"
+        placeholder="password"
+        autocomplete="current-password"
+        style="
+          width: 100%;
+          padding: 14px 18px;
+          background: #161616;
+          border: 1px solid #2a2a2a;
+          border-radius: 999px;
+          color: #e8e2d9;
+          font-family: 'DM Sans', sans-serif;
+          font-size: 15px;
+          outline: none;
+          box-sizing: border-box;
+          text-align: center;
+          margin-bottom: 12px;
+          transition: border-color 0.2s;
+        "
+      />
+      <button
+        id="auth-submit"
+        type="button"
+        style="
+          width: 100%;
+          padding: 14px 18px;
+          background: #c8433a;
+          border: none;
+          border-radius: 999px;
+          color: #fff;
+          font-family: 'DM Sans', sans-serif;
+          font-size: 15px;
+          cursor: pointer;
+          transition: opacity 0.2s;
+        "
+      >enter →</button>
+      <p id="auth-error" style="
+        margin: 16px 0 0;
+        font-family: 'DM Mono', monospace;
+        font-size: 12px;
+        color: #c8433a;
+        letter-spacing: 0.04em;
+        min-height: 18px;
+      "></p>
+    </div>
+  </div>
 
-      <header class="hero">
-        <p class="eyebrow">steam library · mood picker</p>
-        <h1>What should I play?</h1>
-        <p class="hero-copy">
-          Pick a mood and energy level and I'll pull something from your library that actually fits.
-        </p>
-      </header>
+  <!-- Main content (hidden until authed) -->
+  <div id="main-content" style="display: none;">
+    <div class="picker-page">
+      <div class="picker-shell">
 
-      <!-- Normal selection panel -->
-      <section class="panel" id="normal-panel">
+        <nav class="top-nav">
+          <a href="./index.html" class="back-link">← feelo hub</a>
+        </nav>
 
-        <div class="field-group">
-          <span class="field-label">mood</span>
-          <div class="chip-grid">
-            <button type="button" class="chip" data-group="mood" data-value="cozy">cozy</button>
-            <button type="button" class="chip" data-group="mood" data-value="mindless">mindless</button>
-            <button type="button" class="chip" data-group="mood" data-value="focused">focused</button>
-            <button type="button" class="chip" data-group="mood" data-value="intense">intense</button>
-            <button type="button" class="chip" data-group="mood" data-value="exploratory">exploratory</button>
-            <button type="button" class="chip chip--notsure" data-group="mood" data-value="__checkin__">✦ not sure</button>
+        <header class="hero">
+          <p class="eyebrow">steam library · mood picker</p>
+          <h1>What should I play?</h1>
+          <p class="hero-copy">
+            Pick a mood and energy level and I'll pull something from your library that actually fits.
+          </p>
+        </header>
+
+        <!-- Normal selection panel -->
+        <section class="panel" id="normal-panel">
+
+          <div class="field-group">
+            <span class="field-label">mood</span>
+            <div class="chip-grid">
+              <button type="button" class="chip" data-group="mood" data-value="cozy">cozy</button>
+              <button type="button" class="chip" data-group="mood" data-value="mindless">mindless</button>
+              <button type="button" class="chip" data-group="mood" data-value="focused">focused</button>
+              <button type="button" class="chip" data-group="mood" data-value="intense">intense</button>
+              <button type="button" class="chip" data-group="mood" data-value="exploratory">exploratory</button>
+              <button type="button" class="chip chip--notsure" data-group="mood" data-value="__checkin__">✦ not sure</button>
+            </div>
           </div>
-        </div>
 
-        <div class="field-group">
-          <span class="field-label">energy</span>
-          <div class="chip-grid">
-            <button type="button" class="chip" data-group="energy" data-value="low">low</button>
-            <button type="button" class="chip" data-group="energy" data-value="medium">medium</button>
-            <button type="button" class="chip" data-group="energy" data-value="high">high</button>
+          <div class="field-group">
+            <span class="field-label">energy</span>
+            <div class="chip-grid">
+              <button type="button" class="chip" data-group="energy" data-value="low">low</button>
+              <button type="button" class="chip" data-group="energy" data-value="medium">medium</button>
+              <button type="button" class="chip" data-group="energy" data-value="high">high</button>
+            </div>
           </div>
-        </div>
 
-        <div class="field-group">
-          <span class="field-label">genre <span class="optional">(optional)</span></span>
-          <div class="chip-grid">
-            <button type="button" class="chip" data-group="genre" data-value="any">any</button>
-            <button type="button" class="chip" data-group="genre" data-value="roguelike">roguelike</button>
-            <button type="button" class="chip" data-group="genre" data-value="rpg">rpg</button>
-            <button type="button" class="chip" data-group="genre" data-value="simulation">simulation</button>
-            <button type="button" class="chip" data-group="genre" data-value="puzzle">puzzle</button>
-            <button type="button" class="chip" data-group="genre" data-value="story-rich">story-rich</button>
+          <div class="field-group">
+            <span class="field-label">genre <span class="optional">(optional)</span></span>
+            <div class="chip-grid">
+              <button type="button" class="chip" data-group="genre" data-value="any">any</button>
+              <button type="button" class="chip" data-group="genre" data-value="roguelike">roguelike</button>
+              <button type="button" class="chip" data-group="genre" data-value="rpg">rpg</button>
+              <button type="button" class="chip" data-group="genre" data-value="simulation">simulation</button>
+              <button type="button" class="chip" data-group="genre" data-value="puzzle">puzzle</button>
+              <button type="button" class="chip" data-group="genre" data-value="story-rich">story-rich</button>
+            </div>
           </div>
+
+          <div class="actions">
+            <button type="button" class="primary-button" id="pick-button">find my game →</button>
+            <button type="button" class="secondary-button" id="reset-button">reset</button>
+          </div>
+
+          <p class="helper-text" id="selection-summary">pick a mood and energy level to get started.</p>
+
+        </section>
+
+        <!-- Check-in panel (shown when "not sure" is selected) -->
+        <div id="checkin-panel" class="hidden"></div>
+
+        <!-- Loading state -->
+        <div class="panel status-panel hidden" id="loading-panel">
+          <p class="mono">searching your library...</p>
         </div>
 
-        <div class="actions">
-          <button type="button" class="primary-button" id="pick-button">find my game →</button>
-          <button type="button" class="secondary-button" id="reset-button">reset</button>
-        </div>
+        <!-- Results -->
+        <section class="results hidden" id="results-section">
+          <div class="results-header">
+            <h2>your picks</h2>
+            <p class="results-copy" id="results-copy"></p>
+          </div>
+          <div class="results-grid" id="results-grid"></div>
+        </section>
 
-        <p class="helper-text" id="selection-summary">pick a mood and energy level to get started.</p>
-
-      </section>
-
-      <!-- Check-in panel (shown when "not sure" is selected) -->
-      <div id="checkin-panel" class="hidden"></div>
-
-      <!-- Loading state -->
-      <div class="panel status-panel hidden" id="loading-panel">
-        <p class="mono">searching your library...</p>
       </div>
-
-      <!-- Results -->
-      <section class="results hidden" id="results-section">
-        <div class="results-header">
-          <h2>your picks</h2>
-          <p class="results-copy" id="results-copy"></p>
-        </div>
-        <div class="results-grid" id="results-grid"></div>
-      </section>
-
     </div>
   </div>
 
   <script>
     (function () {
-      if (sessionStorage.getItem('gp-auth') !== 'yes') {
-        var pwd = prompt('Password required:');
-        if (pwd === 'Feelo1234') {
-          sessionStorage.setItem('gp-auth', 'yes');
-        } else {
-          window.location.replace('./index.html');
-        }
+      var gate = document.getElementById('auth-gate');
+      var main = document.getElementById('main-content');
+      var input = document.getElementById('auth-input');
+      var submit = document.getElementById('auth-submit');
+      var error = document.getElementById('auth-error');
+
+      function unlock() {
+        sessionStorage.setItem('gp-auth', 'yes');
+        gate.style.display = 'none';
+        main.style.display = 'block';
       }
+
+      if (sessionStorage.getItem('gp-auth') === 'yes') {
+        gate.style.display = 'none';
+        main.style.display = 'block';
+        return;
+      }
+
+      submit.addEventListener('click', function () {
+        if (input.value === 'Feelo1234') {
+          unlock();
+        } else {
+          error.textContent = 'incorrect password.';
+          input.value = '';
+          input.focus();
+        }
+      });
+
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') submit.click();
+      });
+
+      input.addEventListener('focus', function () {
+        input.style.borderColor = '#c8433a';
+      });
+      input.addEventListener('blur', function () {
+        input.style.borderColor = '#2a2a2a';
+      });
+
+      input.focus();
     })();
   </script>
   <script src="./game-picker.js"></script>
