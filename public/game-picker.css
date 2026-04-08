@@ -76,6 +76,7 @@ button {
 .hero {
   margin-bottom: 32px;
   max-width: 900px;
+  padding-left: 28px;
 }
 
 .eyebrow {
