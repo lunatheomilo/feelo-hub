@@ -88,6 +88,18 @@
     </div>
   </div>
 
+  <script>
+    (function () {
+      if (sessionStorage.getItem('gp-auth') !== 'yes') {
+        var pwd = prompt('Password required:');
+        if (pwd === 'Feelo1234') {
+          sessionStorage.setItem('gp-auth', 'yes');
+        } else {
+          window.location.replace('./index.html');
+        }
+      }
+    })();
+  </script>
   <script src="./game-picker.js"></script>
 </body>
 </html>
