@@ -325,3 +325,167 @@ h2 {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+/* ── Add to bottom of game-picker.css ─────────────────────────────────── */
+
+/* Check-in panel */
+#checkin-panel {
+  padding: 28px;
+  margin-bottom: 24px;
+  background: linear-gradient(180deg, var(--bg2), var(--bg3));
+  border: 1px solid var(--border);
+  border-radius: 24px;
+}
+
+.checkin-progress {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  margin-bottom: 16px;
+}
+
+.checkin-question {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 4vw, 32px);
+  font-weight: 400;
+  font-style: italic;
+  margin: 0 0 20px;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.checkin-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.checkin-option {
+  padding: 10px 20px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-dim);
+  font-family: var(--font-body);
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.checkin-option:hover {
+  border-color: var(--accent);
+  color: var(--text);
+  background: var(--accent-soft);
+}
+
+.checkin-back {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 4px;
+  transition: color 0.15s;
+}
+
+.checkin-back:hover {
+  color: var(--text-dim);
+}
+
+.checkin-summary {
+  margin-bottom: 20px;
+}
+
+.checkin-summary-line {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-dim);
+  margin: 0 0 6px;
+}
+
+.checkin-summary-line strong {
+  color: var(--accent-warm);
+  font-weight: 400;
+}
+
+/* Not-sure chip */
+.chip--notsure {
+  border-style: dashed;
+  color: var(--text-muted);
+}
+
+.chip--notsure:hover {
+  border-color: var(--accent-warm);
+  color: var(--accent-warm);
+  background: transparent;
+}
+
+/* Not this one */
+.not-this-one-wrap {
+  margin-top: 14px;
+}
+
+.not-this-one-btn {
+  background: none;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0;
+  letter-spacing: 0.04em;
+  transition: color 0.15s;
+}
+
+.not-this-one-btn:hover {
+  color: var(--accent);
+}
+
+.reason-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.rejection-reason {
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  cursor: pointer;
+  transition: 0.15s ease;
+  letter-spacing: 0.03em;
+}
+
+.rejection-reason:hover {
+  border-color: var(--accent);
+  color: var(--text);
+  background: var(--accent-soft);
+}
+
+.result-card--loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+  opacity: 0.5;
+}
+
+.result-loading-text {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+  animation: pulse 1.5s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
