@@ -460,6 +460,120 @@
 </style>
 </head>
 <body>
+
+  <!-- Password gate -->
+  <div id="auth-gate" style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #F7F4F0;
+    font-family: 'DM Sans', sans-serif;
+  ">
+    <div style="width: 100%; max-width: 360px; padding: 0 24px; text-align: center;">
+      <p style="
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #A0908A;
+        margin: 0 0 16px;
+      ">feelo hub · private</p>
+      <h2 style="
+        font-family: 'Cormorant Garamond', Georgia, serif;
+        font-size: 2.4rem;
+        font-weight: 300;
+        font-style: italic;
+        color: #2C2520;
+        margin: 0 0 32px;
+        line-height: 1.1;
+      ">what's the word?</h2>
+      <input
+        id="auth-input"
+        type="password"
+        placeholder="password"
+        autocomplete="current-password"
+        style="
+          width: 100%;
+          padding: 14px 18px;
+          background: #fff;
+          border: 1.5px solid #E8E0D8;
+          border-radius: 999px;
+          color: #2C2520;
+          font-family: 'DM Sans', sans-serif;
+          font-size: 15px;
+          outline: none;
+          box-sizing: border-box;
+          text-align: center;
+          margin-bottom: 12px;
+          transition: border-color 0.2s;
+        "
+      />
+      <button
+        id="auth-submit"
+        type="button"
+        style="
+          width: 100%;
+          padding: 14px 18px;
+          background: #2C2520;
+          border: none;
+          border-radius: 999px;
+          color: #fff;
+          font-family: 'DM Sans', sans-serif;
+          font-size: 15px;
+          cursor: pointer;
+          transition: opacity 0.2s;
+        "
+      >enter →</button>
+      <p id="auth-error" style="
+        margin: 16px 0 0;
+        font-size: 0.75rem;
+        color: #7D2235;
+        letter-spacing: 0.04em;
+        min-height: 18px;
+      "></p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var gate = document.getElementById('auth-gate');
+      var main = document.getElementById('main-content');
+      var input = document.getElementById('auth-input');
+      var submit = document.getElementById('auth-submit');
+      var error = document.getElementById('auth-error');
+      function unlock() {
+        sessionStorage.setItem('gp-auth', 'yes');
+        gate.style.display = 'none';
+        main.style.display = 'block';
+      }
+      if (sessionStorage.getItem('gp-auth') === 'yes') {
+        gate.style.display = 'none';
+        main.style.display = 'block';
+        return;
+      }
+      submit.addEventListener('click', function () {
+        if (input.value === 'Feelo1234') {
+          unlock();
+        } else {
+          error.textContent = 'incorrect password.';
+          input.value = '';
+          input.focus();
+        }
+      });
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') submit.click();
+      });
+      input.addEventListener('focus', function () {
+        input.style.borderColor = '#7D2235';
+      });
+      input.addEventListener('blur', function () {
+        input.style.borderColor = '#E8E0D8';
+      });
+      input.focus();
+    })();
+  </script>
+
+<div id="main-content" style="display:none;">
 <div class="page">
 
   <!-- Header -->
@@ -502,38 +616,35 @@
   <div class="inspire-card">
     <span class="inspire-label">Not sure? Try one of these</span>
     <div class="inspire-pills" id="inspirePills">
+      <!-- Neutrals -->
       <button class="inspire-pill" data-colour="Black" data-hex="#1A1A1A">
         <span class="pill-dot" style="background:#1A1A1A;"></span> Black
-      </button>
-      <button class="inspire-pill" data-colour="Powder blue" data-hex="#A8C5D8">
-        <span class="pill-dot" style="background:#A8C5D8;"></span> Powder blue
-      </button>
-      <button class="inspire-pill" data-colour="Burgundy" data-hex="#7D2235">
-        <span class="pill-dot" style="background:#7D2235;"></span> Burgundy
-      </button>
-      <button class="inspire-pill" data-colour="Sage green" data-hex="#8FA98A">
-        <span class="pill-dot" style="background:#8FA98A;"></span> Sage green
-      </button>
-      <button class="inspire-pill" data-colour="Warm camel" data-hex="#C49A6C">
-        <span class="pill-dot" style="background:#C49A6C;"></span> Warm camel
-      </button>
-      <button class="inspire-pill" data-colour="Dusty rose" data-hex="#E8C4B8">
-        <span class="pill-dot" style="background:#E8C4B8;"></span> Dusty rose
-      </button>
-      <button class="inspire-pill" data-colour="Olive" data-hex="#7A7E50">
-        <span class="pill-dot" style="background:#7A7E50;"></span> Olive
-      </button>
-      <button class="inspire-pill" data-colour="Slate" data-hex="#6E849A">
-        <span class="pill-dot" style="background:#6E849A;"></span> Slate
-      </button>
-      <button class="inspire-pill" data-colour="Terracotta" data-hex="#C1603A">
-        <span class="pill-dot" style="background:#C1603A;"></span> Terracotta
       </button>
       <button class="inspire-pill" data-colour="Ivory" data-hex="#F2EAD8">
         <span class="pill-dot" style="background:#F2EAD8; border:1px solid #E0D8CC;"></span> Ivory
       </button>
-      <button class="inspire-pill" data-colour="Deep teal" data-hex="#3D7A7A">
-        <span class="pill-dot" style="background:#3D7A7A;"></span> Deep teal
+      <!-- Pastels -->
+      <button class="inspire-pill" data-colour="Pastel yellow" data-hex="#F5EDA0">
+        <span class="pill-dot" style="background:#F5EDA0; border:1px solid #E0D8A0;"></span> Pastel yellow
+      </button>
+      <!-- Blues -->
+      <button class="inspire-pill" data-colour="Powder blue" data-hex="#A8C5D8">
+        <span class="pill-dot" style="background:#A8C5D8;"></span> Powder blue
+      </button>
+      <!-- Greens -->
+      <button class="inspire-pill" data-colour="Sage green" data-hex="#8FA98A">
+        <span class="pill-dot" style="background:#8FA98A;"></span> Sage green
+      </button>
+      <button class="inspire-pill" data-colour="Olive" data-hex="#7A7E50">
+        <span class="pill-dot" style="background:#7A7E50;"></span> Olive
+      </button>
+      <!-- Reds & wines -->
+      <button class="inspire-pill" data-colour="Burgundy" data-hex="#7D2235">
+        <span class="pill-dot" style="background:#7D2235;"></span> Burgundy
+      </button>
+      <!-- Earthy & warm -->
+      <button class="inspire-pill" data-colour="Chocolate brown" data-hex="#4A2C1A">
+        <span class="pill-dot" style="background:#4A2C1A;"></span> Chocolate brown
       </button>
     </div>
   </div>
@@ -676,11 +787,16 @@ Respond ONLY with valid JSON — no preamble, no markdown, no backticks. Use thi
 }`;
 
     try {
-     const res = await fetch('/api/colour-pairings', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ prompt })
-});
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-6',
+          max_tokens: 2000,
+          tools: [{ type: 'web_search_20250305', name: 'web_search' }],
+          messages: [{ role: 'user', content: prompt }]
+        })
+      });
 
       if (!res.ok) throw new Error(`API error ${res.status}`);
 
@@ -756,5 +872,6 @@ Respond ONLY with valid JSON — no preamble, no markdown, no backticks. Use thi
     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 </script>
+</div>
 </body>
 </html>
