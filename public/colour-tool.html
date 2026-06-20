@@ -535,6 +535,7 @@
   </div>
 
   <script>
+    document.addEventListener('DOMContentLoaded', function () {
     (function () {
       var gate = document.getElementById('auth-gate');
       var main = document.getElementById('main-content');
@@ -571,6 +572,7 @@
       });
       input.focus();
     })();
+    }); // DOMContentLoaded
   </script>
 
 <div id="main-content" style="display:none;">
