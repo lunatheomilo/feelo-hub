@@ -78,7 +78,7 @@ Please recommend 3–5 games for right now.`;
 
   try {
     const response = await client.messages.create({
-      model: "claude-sonnet-4-20250514",
+      model: "claude-sonnet-5",
       max_tokens: 1000,
       system: SYSTEM_PROMPT,
       messages: [{ role: "user", content: userMessage }],
